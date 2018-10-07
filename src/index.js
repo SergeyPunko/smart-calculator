@@ -1,26 +1,65 @@
 class SmartCalculator {
   constructor(initialValue) {
-    // your implementation
+    this.getPol=[initialValue];
   }
-
+ 
   add(number) {
-    // your implementation
+    this.getPol.push("+");
+    this.getPol.push(number);
+    return this;
   }
-  
+ 
   subtract(number) {
-    // your implementation
+    this.getPol.push("-");
+    this.getPol.push(number);
+    return this;
   }
-
+ 
   multiply(number) {
-    // your implementation
+    this.getPol.push("*");
+    this.getPol.push(number);
+    return this;
   }
-
+ 
   devide(number) {
-    // your implementation
+    this.getPol.push("/");
+    this.getPol.push(number);
+    return this;
   }
-
+ 
   pow(number) {
-    // your implementation
+    this.getPol.push("^");
+    this.getPol.push(number);
+    return this;
+  }
+  toString() {
+    for(let i = this.getPol.length-1; i >= 0; i--){
+      if(this.getPol[i]=="^"){
+        this.getPol.splice(i-1,3, Math.pow(this.getPol[i-1], this.getPol[i+1]));
+        i++;
+      }
+    }
+    for(let i = 0 ; i < this.getPol.length; i++){
+      if(this.getPol[i]=="*"){
+        this.getPol.splice(i-1,3,this.getPol[i-1]*this.getPol[i+1]);
+        i--;
+      }
+      if(this.getPol[i]=="/"){
+        this.getPol.splice(i-1,3,this.getPol[i-1] / this.getPol[i+1]);
+        i--;
+      }
+    }
+    for(let i = 0 ; i < this.getPol.length; i++){
+      if(this.getPol[i]=="+"){
+        this.getPol.splice(i-1,3,this.getPol[i-1] + this.getPol[i+1]);
+        i--;
+      }
+      if(this.getPol[i]=="-"){
+        this.getPol.splice(i-1,3,this.getPol[i-1]-this.getPol[i+1]);
+        i--;
+      }
+    }
+    return this.getPol[0];
   }
 }
 
